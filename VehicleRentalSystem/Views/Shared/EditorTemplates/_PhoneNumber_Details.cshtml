@@ -1,0 +1,19 @@
+﻿@model VehicleRentalSystem.ViewModels.PhoneNumberViewModel
+
+<div id="phoneRow" class="phoneRow">
+
+
+    <dl class="row">
+        <dt class="col-sm-5 offset-1 font-weight-bold">
+            @Html.DisplayFor(model => model.Phone.PhoneNumberType.Name)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(m => m.Phone.PhoneNumber)
+        </dd>
+    </dl>
+
+
+</div>
+
+
+

@@ -1,0 +1,63 @@
+﻿ @model VehicleRentalSystem.ViewModels.EmailViewModel   
+ @using HtmlHelpers.BeginCollectionItem
+ @using (Html.BeginCollectionItem("EmailAddresses"))
+{
+    <div class="emailRow">
+
+
+        @Html.HiddenFor(model => model.EmailAdd.BusinessEntityId)
+        @Html.HiddenFor(model => model.EmailAdd.EmailAddressId)
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.EmailAdd.Email, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.EditorFor(model => model.EmailAdd.Email, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(model => model.EmailAdd.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 text-right align-content-center mb-2">
+            <a class="btn btn-sm btn-danger  " onclick="DeleteItem('@Url.Action("DeleteEmailAddress", "Customer", new { businessEntityId = Model.EmailAdd.BusinessEntityId, emailId = Model.EmailAdd.EmailAddressId })', this)"><span class="icon text-white-50"><i class="fas fa-trash"></i></span></a>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   

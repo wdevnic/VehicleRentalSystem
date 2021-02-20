@@ -1,0 +1,120 @@
+﻿@model VehicleRentalSystem.ViewModels.CustomerViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h5 class="modal-title text-light" id="detailsModalLabel">Customer Details</h5>
+                <button id="close" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>   
+            </div>
+            <div id="mbody" class="modal-body" style="padding-bottom:0px">
+                <div class="container">
+                    <div>
+                        <section>
+
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Personal</legend>
+                                <dl class="row">
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Customer.CustomerId)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Customer.CustomerId)
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Customer.Person.FullName)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Customer.Person.FullName)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Customer.Branch)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Customer.Branch.Name)
+                                    </dd>
+                                </dl>
+
+                            </fieldset>
+                        </section>
+                        <br />
+
+                        <section>
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Phone</legend>
+                                <div id="allPhoneNumbers">
+
+                                    @foreach (var phoneNumber in Model.PhoneNumbers)
+                                    {
+
+                                        Html.RenderPartial("~/Views/Shared/EditorTemplates/_PhoneNumber_Details.cshtml", phoneNumber);
+                                    }
+
+                                </div>
+                            </fieldset>
+                        </section>
+                        <br />
+
+                        <section>
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Email</legend>
+                                <div id="allEmailAddresses">
+
+                                    @if (Model.EmailAddresses != null)
+                                    {
+                                        foreach (var email in Model.EmailAddresses)
+                                        {
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/_EmailAddress _Details.cshtml", email);
+                                        }
+                                    }
+                                </div>
+                            </fieldset>
+                        </section>
+                        <br />
+
+                        <section>
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Address</legend>
+
+                                <div id="allAddresses">
+
+                                    @if (Model.Addresses != null)
+                                    {
+                                        foreach (var address in Model.Addresses)
+                                        {
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/_Address_Details.cshtml", address);
+                                        }
+                                    }
+                                </div>
+                            </fieldset>
+                        </section>
+                        <br />
+
+                    </div>
+
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

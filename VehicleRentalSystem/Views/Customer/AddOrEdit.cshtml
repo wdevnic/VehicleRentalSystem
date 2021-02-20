@@ -1,0 +1,197 @@
+﻿@model VehicleRentalSystem.ViewModels.CustomerViewModel
+@{
+    Layout = null;
+}
+
+<!-- Customer Modal -->
+<div class="modal fade" id="addOrEditModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h5 class="modal-title  text-light" id="addOrEditModalLabel">Add New Customer</h5>
+                <button id="close" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="mbody" class="modal-body" style="padding-bottom:0px">
+                <!-- Customer Form -->
+
+                @using (Html.BeginForm("AddOrEdit", "Customer", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
+                {
+
+
+                    <div class="container">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Customer.CustomerId)
+                        @Html.HiddenFor(model => model.Customer.Person.BusinessEntityId)
+                        @Html.HiddenFor(model => model.Customer.PersonId)
+
+
+                        @foreach (var a in Model.PhoneNumbers)
+                        {
+                            @Html.HiddenFor(b => a.Phone.BusinessEntityId)
+                        }
+
+                        @if (Model.Addresses != null)
+                        {
+                            foreach (var a in Model.Addresses)
+                            {
+                                @Html.HiddenFor(b => a.BEAddress.BusinessEntityId)
+                            }
+                        }
+
+                        <section>
+
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Personal Details</legend>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right font-weight-bold">
+                                            @Html.LabelFor(model => model.Customer.Person.Title, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-sm-7 text-left">
+                                            @Html.EditorFor(model => model.Customer.Person.Title, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                            @Html.ValidationMessageFor(model => model.Customer.Person.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right font-weight-bold">
+                                            @Html.LabelFor(model => model.Customer.Person.FirstName, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-sm-7 text-left">
+                                            @Html.EditorFor(model => model.Customer.Person.FirstName, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                            @Html.ValidationMessageFor(model => model.Customer.Person.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right font-weight-bold">
+                                            @Html.LabelFor(model => model.Customer.Person.LastName, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-sm-7 text-left">
+                                            @Html.EditorFor(model => model.Customer.Person.LastName, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                            @Html.ValidationMessageFor(model => model.Customer.Person.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </section>
+                        <br />
+
+                        <section>
+                            <!-- Customer Phone Number -->
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Contact Details</legend>
+                                <div id="allPhoneNumbers">
+
+                                    @foreach (var phoneNumber in Model.PhoneNumbers)
+                                    {
+
+                                        Html.RenderPartial("~/Views/Shared/EditorTemplates/_PhoneNumber_Existing.cshtml", phoneNumber);
+                                    }
+
+                                </div>
+
+                                <div class="col-12 text-right align-content-center">
+                                    <a class="btn btn-sm btn-primary btn-icon-split mb-4 mt-4" id="addPhoneNumber" name="addPhoneNumber" onclick="AddPhoneNumber()">
+                                        <span class="icon text-white-50"><i class='fas fa-phone'></i></span>
+                                        <span class="text text-white">Add</span>
+                                    </a>
+                                </div>
+
+                                <!-- Customer Addresses -->
+                                <div id="allAddresses">
+
+                                    @if (Model.Addresses != null)
+                                    {
+                                        foreach (var address in Model.Addresses)
+                                        {
+
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/_Address_Existing.cshtml", address);
+                                        }
+                                    }
+                                </div>
+
+
+                                <div class="col-12 text-right align-content-center">
+                                    <a class="btn btn-sm btn-primary btn-icon-split mb-4 mt-4" id="addAddress" name="addAddress" onclick="AddAddress()">
+                                        <span class="icon text-white-50"><i class='fas fa-address-book'></i></span>
+                                        <span class="text text-white">Add</span>
+                                    </a>
+                                </div>
+
+                                <!-- Customer Email Addresses -->
+                                <div id="allEmailAddresses">
+
+                                    @if (Model.EmailAddresses != null)
+                                    {
+                                        foreach (var email in Model.EmailAddresses)
+                                        {
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/_EmailAddress _Existing.cshtml", email);
+                                        }
+                                        <a href="~/Views/Shared/EditorTemplates/_EmailAddress _Existing.cshtml"></a>
+                                    }
+                                </div>
+
+
+                                <div class="col-12 text-right align-content-center">
+                                    <a class="btn btn-sm btn-primary btn-icon-split mb-4 mt-4" id="addEmailAddress" name="addEmailAddress" onclick="AddEmail()">
+                                        <span class="icon text-white-50"><i class='fas fa-at'></i></span>
+                                        <span class="text text-white">Add</span>
+                                    </a>
+                                </div>
+
+                            </fieldset>
+                        </section>
+                        <br />
+
+                        <section>
+                            <!-- Customer Branch data -->
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Location Details</legend>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right font-weight-bold">
+                                            @Html.LabelFor(model => model.Customer.Branch, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-sm-7 text-left">
+                                            @Html.DropDownListFor(m => m.Customer.BranchId, new SelectList(Model.Branches, "BusinessEntityId", "Name"), "Select Branch", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                            @Html.ValidationMessageFor(model => model.Customer.Branch.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </section>
+                        <br />
+
+                        <div class="col-12 text-right align-content-center">
+                            <div class="modal-footer border-0">
+                                <input type="Reset" value="Reset" class="btn btn-secondary" />
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/customscpt/customerModel.js"></script>
+
+
+
+
+
+

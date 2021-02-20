@@ -1,0 +1,79 @@
+﻿@model VehicleRentalSystem.ViewModels.AddressViewModel
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("Addresses"))
+{
+    <div id="newAddressRow" class="addressRow">
+
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.BEAddress.AddressType, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.DropDownListFor(m => m.BEAddress.AddressTypeId, new SelectList(Model.AddressTypes, "AddressTypeId", "Name"), "Select Address Type", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(model => model.BEAddress.AddressType.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.BEAddress.Address.AddressLine1, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.EditorFor(model => model.BEAddress.Address.AddressLine1, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(model => model.BEAddress.Address.AddressLine1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.BEAddress.Address.AddressLine2, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.EditorFor(model => model.BEAddress.Address.AddressLine2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(model => model.BEAddress.Address.AddressLine2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.BEAddress.Address.City, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.EditorFor(model => model.BEAddress.Address.City, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(model => model.BEAddress.Address.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.BEAddress.Address.PostalCode, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.EditorFor(model => model.BEAddress.Address.PostalCode, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(model => model.BEAddress.Address.PostalCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 text-right align-content-center mb-2">
+            <a class="btn btn-sm btn-danger  " onclick="DeleteHtmlItem(this)"><span class="icon text-white-50"><i class="fas fa-trash"></i></span></a>
+        </div>
+
+    </div>
+
+
+}

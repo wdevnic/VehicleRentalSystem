@@ -1,0 +1,95 @@
+﻿@model IEnumerable<VehicleRentalSystem.ViewModels.ReservationViewModel>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary text-center">Manage Reservations</h4>
+
+    </div>
+
+    <!--Reservation Data Table Headings-->
+    <div class="card-body">
+        <div class="table-responsive">
+            <a onclick="Add('@Url.Action("AddOrEdit", "Reservation")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
+                <span class="icon text-white-50"><i class='fas fa-plus'></i></span>
+                <span class="text text-white">Add</span>
+            </a>
+            <table id="reservationTable" class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.ReservationId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.ReservationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.Customer.Person.FullName)
+                        </th>
+
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.StartDate)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.DaysReserved)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.PickUpLocation)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Reservation.DropOffLocation)
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@*containter for add and edit boostrap modals*@
+<div id="modalContainer">
+
+</div>
+
+@*Delete rental Bootstrap modal*@
+<div class="modal " id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h5 class="modal-title text-light" id="deleteModalLabel">Delete Reservation</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure you would like to delete this reservation?</div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button id="deleteButton" class="btn btn-primary" type="button">Delete</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/customscpt/reservation.js"></script>
+}
+
+

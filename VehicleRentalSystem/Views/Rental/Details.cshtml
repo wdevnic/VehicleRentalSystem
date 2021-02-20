@@ -1,0 +1,252 @@
+﻿@model VehicleRentalSystem.ViewModels.RentalViewModel
+@{
+    Layout = null;
+}
+
+<!--Vehicle Details Modal-->
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="rentalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h4 class="modal-title text-center text-light" id="addOrEditModalLabel">Details</h4>
+                <button id="close" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="mbody" class="modal-body" style="padding-bottom:0px ">
+
+                <div class="container">
+                    <div>
+                        <section>
+                            <!--Rental Transactions-->
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Transaction Information</legend>
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.RentalId)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.RentalId)
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.RentalDate)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.RentalDate)
+                                    </dd>
+                                </dl>
+                            </fieldset>
+                        </section>
+                        <br />
+                        <section>
+                            <!--Customer Details-->
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Customer Information</legend>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.Customer.Person.FullName)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.Customer.Person.FullName)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.StartDate)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.StartDate)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.EndDate)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.EndDate)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.PickUpLocation)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.PickUpLocation.Name)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.DropOffLocation)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.DropOffLocation.Name)
+                                    </dd>
+                                </dl>
+                            </fieldset>
+
+                        </section>
+
+                        <br />
+
+                        <section>
+                            <!--Vehicle Details-->
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Vehicle Information</legend>
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.VehicleType.Name)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.VehicleType.Name)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.VehicleModel.Name)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.VehicleModel.Name)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.Vehicle.LicensePlate)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.Vehicle.LicensePlate)
+                                    </dd>
+                                </dl>
+
+                            </fieldset>
+
+                        </section>
+                        <br />
+                        <section>
+                            <!--Payment Details-->
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Payment  Information</legend>
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Return.ReturnDate)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Return.ReturnDate)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.Rental.VehicleType.Rate)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.Rental.VehicleType.Rate)
+                                    </dd>
+                                </dl>
+                                <hr />
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.DaysRented)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.DaysRented)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.RentalCost)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.RentalCost)
+                                    </dd>
+                                </dl>
+                                <hr />
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.DaysOverdue)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.DaysOverdue)
+                                    </dd>
+                                </dl>
+
+                                <dl class="row">
+
+                                    <dt class="col-sm-5 offset-1 font-weight-bold">
+                                        @Html.DisplayNameFor(model => model.OverdueCost)
+                                    </dt>
+
+                                    <dd class="col-sm-6">
+                                        @Html.DisplayFor(model => model.OverdueCost)
+                                    </dd>
+                                </dl>
+
+                            </fieldset>
+
+                        </section>
+
+                    </div>
+
+
+
+                    <div class="col-12 text-right align-content-center">
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/customscpt/customerModel.js"></script>
+
+
+
+
+
+
+

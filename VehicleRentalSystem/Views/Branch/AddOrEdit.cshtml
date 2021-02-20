@@ -1,0 +1,102 @@
+﻿@model VehicleRentalSystem.ViewModels.BranchViewModel
+@{
+    Layout = null;
+}
+<!-- Branch Modal -->
+<div class="modal fade" id="addOrEditModal" tabindex="-1" role="dialog" aria-labelledby="branchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h5 class="modal-title text-light" id="addOrEditModalLabel">Add New Branch</h5>
+                <button id="close" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!-- Branch Form -->
+            <div id="mbody" class="modal-body" style="padding-bottom:0px">
+
+                @using (Html.BeginForm("AddOrEdit", "Branch", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
+                {
+                    <div class="container">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Branch.BusinessEntityId)
+                        @Html.HiddenFor(model => model.Address.AddressId)
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Branch.Name, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    @Html.EditorFor(model => model.Branch.Name, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Branch.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Address.AddressLine1, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    @Html.EditorFor(model => model.Address.AddressLine1, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Address.AddressLine1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Address.AddressLine2, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    @Html.EditorFor(model => model.Address.AddressLine2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Address.AddressLine2, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Address.City, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    @Html.EditorFor(model => model.Address.City, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Address.City, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Address.PostalCode, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    @Html.EditorFor(model => model.Address.PostalCode, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Address.PostalCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-right align-content-center">
+                            <div class="modal-footer border-0">
+                                <input type="Reset" value="Reset" class="btn btn-secondary" />
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

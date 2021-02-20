@@ -1,0 +1,78 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+/*.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+/*.dl-horizontal dt {
+    white-space: normal;
+}*/
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;*/
+/*//}*/
+
+.custom-color {
+    color: darkolivegreen;
+}
+
+.sidebar .sidebar-brand {
+    text-transform: none;
+    font-family:Candara;
+    font-size: 1.25rem;
+}
+
+/*fieldset {
+    width: 250px;
+    box-sizing: border-box;
+    margin-left: 136px;
+    border: 1px solid #999;
+}*/
+
+/*legend {
+    display: block;
+    padding-inline-start: 2px;
+    padding-inline-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    font-size: small;
+}*/
+/*
+legend + * {
+    -webkit-margin-top-collapse: separate;
+    margin-top: 10px;
+}*/
+
+/*fieldset {
+    padding-top: 48px;*/ /*legend height(18px) + top value(15px) + bottom spacing(15px) */
+    /*position: relative;
+}
+
+legend {
+    height: 18px;*/ /* Default Height of non-styled legend element with default font-size of 16px as tested at time of this posting */
+    /*left: 15px;*/
+    /*margin:15px 0;*/ /* Margins initially trying to achieve */
+    /*position: absolute;
+    top: 15px;*/ /* replaces top margin-top:15px; */
+/*}*/
+
+/*legend.scheduler-border {
+    width: inherit;*/ /* Or auto */
+    /*padding: 0 10px;*/ /* To give a bit of padding on the left and right */
+    /*border-bottom: none;
+}*/
+
+

@@ -1,0 +1,309 @@
+﻿@model IEnumerable<VehicleRentalSystem.ViewModels.RentalViewModel>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Pickups Widget -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div id="pickup" class="card-body">
+                    <div class="row no-gutters align-items-center" data-toggle="tooltip" data-placement="right" title="Filter Pickups">
+                        @{Html.RenderAction("DailyPickUps", "Dashboard");} @*populate pickups widget*@
+                        <div class="col-auto">
+                            <i class="fas fa-dolly fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Returns Widget -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div id="dropoff" class="row no-gutters align-items-center" data-toggle="tooltip" data-placement="right" title="Filter Returns">
+                        @{Html.RenderAction("DailyReturns", "Dashboard");} @*populate returns widget*@
+                        <div class="col-auto">
+                            <i class="fas fa-undo-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overdue Widget -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div id="overdue" class="card-body">
+                    <div class="row no-gutters align-items-center" data-toggle="tooltip" data-placement="right" title="Filter Overdue Rentals">
+                        @{Html.RenderAction("OverDueRentalsCount", "Dashboard");} @*populate overdue widget*@
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+            <!-- Available Models Bar Chart -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Vehicle Availability</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <a href="@Url.Action("Manage", "VehicleModel")">
+                            @*redirect to cars page*@
+                            <div id="bchart">
+                                <div class="chart-area">
+                                    <canvas id="bar_chart" data-toggle="tooltip" data-placement="right" title="Click to view Models"></canvas>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @*<hr>*@
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-6 col-lg-6">
+
+            <!-- Revenue Line Graph -->
+            <div class="card shadow mb-4 ">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Revenue</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+
+                        <a href="@Url.Action("Manage", "Rental")">
+                            @*redirect to retals page*@
+                            <div id="lchart">
+                                <div class="chart-area">
+                                    <canvas id="line_chart" data-toggle="tooltip" data-placement="right" title="Click to view Rentals"></canvas>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @*<hr>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary text-center">Rentals</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <!-- Add Record-->
+                <a onclick="Add('@Url.Action("AddRental", "Rental")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
+                    <span class="icon text-white-50"><i class='fas fa-plus'></i></span>
+                    <span class="text text-white">Add</span>
+                </a>
+                <!-- Remove Filter -->
+                <a onclick="RemoveFilter()" class="btn btn-sm btn-primary btn-icon-split mb-4 float-right">
+                    <span class="icon text-white-50"><i class="fas fa-filter"></i></span>
+                    <span class="text text-white">Remove Filter</span>
+                </a>
+                <!-- Rentals Data Table -->
+                <table id="rentalTable" class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.RentalId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.RentalDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.Customer.Person.FullName)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.StartDate)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.EndDate)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.PickUpLocation)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.DropOffLocation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.Returned)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rental.Returned)
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="modalContainer">
+
+    </div>
+
+    <div class="modal " id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-primary">
+                    <h5 class="modal-title text-light" id="deleteModalLabel">Delete Rental</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you would like to delete this Rental?</div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button id="deleteButton" class="btn btn-primary" type="button">Delete</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/customscpt/dashboard.js"></script>
+    <script src="~/Scripts/customscpt/Dialogs.js"></script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

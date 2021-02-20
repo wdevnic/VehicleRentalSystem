@@ -1,0 +1,21 @@
+﻿@model VehicleRentalSystem.ViewModels.AddressViewModel
+
+    <div class="addressRow">
+
+        <dl class="row">
+            <dt class="col-sm-5 offset-1 font-weight-bold">
+                @Html.DisplayFor(model => model.BEAddress.AddressType.Name)
+            </dt>
+
+            <dd class="col-sm-6">
+                <address>
+                    @Html.DisplayFor(model => model.BEAddress.Address.AddressLine1) <br />
+                    @Html.DisplayFor(model => model.BEAddress.Address.AddressLine2) <br />
+                    @Html.DisplayFor(model => model.BEAddress.Address.City) <br />
+                    @Html.DisplayFor(model => model.BEAddress.Address.PostalCode)
+                </address>
+            </dd>
+        </dl>
+    </div>
+
+

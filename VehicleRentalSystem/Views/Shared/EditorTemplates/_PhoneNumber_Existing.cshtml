@@ -1,0 +1,47 @@
+﻿@model VehicleRentalSystem.ViewModels.PhoneNumberViewModel
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("PhoneNumbers"))
+{
+    <div id="phoneRow" class="phoneRow">
+
+
+        @Html.HiddenFor(model => model.Phone.PhoneNumberTypeId)
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.Phone.PhoneNumberType, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.DropDownListFor(m => m.Phone.PhoneNumberTypeId, new SelectList(Model.PhoneNumberTypes, "PhoneNumberTypeId", "Name"), "Select Number Type", htmlAttributes: new { @class = "form-control form-control-sm", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.Phone.PhoneNumberType.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5 text-right font-weight-bold">
+                    @Html.LabelFor(model => model.Phone.PhoneNumber, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-sm-7 text-left">
+                    @Html.EditorFor(model => model.Phone.PhoneNumber, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(model => model.Phone.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 text-right align-content-center mb-2">
+            <a class="btn btn-sm btn-danger  " onclick="DeleteItem('@Url.Action("DeletePhoneNumber","Customer" , new { businessEntityId = Model.Phone.BusinessEntityId, phoneNumberTypeId = Model.Phone.PhoneNumberTypeId})', this)"><span class="icon text-white-50"><i class="fas fa-trash"></i></span></a>
+        </div>
+    </div>
+
+
+}
+
+
+
+
+

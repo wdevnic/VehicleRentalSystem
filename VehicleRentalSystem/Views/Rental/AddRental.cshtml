@@ -1,0 +1,217 @@
+﻿@model VehicleRentalSystem.ViewModels.RentalViewModel
+@{
+    Layout = null;
+}
+
+<!--Rental Modal-->
+<link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+<div class="modal fade" id="addOrEditModal" tabindex="-1" role="dialog" aria-labelledby="addOrEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h5 class="modal-title text-light" id="addOrEditModalLabel">Add New Rental</h5>
+                <button id="close" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="mbody" class="modal-body" style="padding-bottom:0px">
+
+                <!--Rental Form-->
+                @using (Html.BeginForm("AddRental", "Rental", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
+                {
+
+
+                    <div class="container">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Rental.RentalId)
+                        @Html.HiddenFor(model => model.Rental.CustomerId)
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.RentalDate, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.TextBoxFor(model => model.Rental.RentalDate, "{0:yyyy-MM-dd}", new { @class = "form-control form-control-sm", @type = "date", id = "rental-date" })
+                                    @Html.ValidationMessageFor(model => model.Rental.RentalDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.Customer.Person.FullName, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.Customer.CustomerId, new SelectList(Model.Customers, "CustomerId", "Person.FullName"), "Select Customer", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @Html.ValidationMessageFor(model => model.Rental.Customer.Person.FullName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group" hidden>
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.StartDate, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.TextBoxFor(x => x.Rental.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control form-control-sm", @type = "date", id = "start-date" })
+                                    @Html.ValidationMessageFor(model => model.Rental.StartDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" hidden>
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.EndDate, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.TextBoxFor(x => x.Rental.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control form-control-sm", @type = "date", id = "end-date" })
+                                    @Html.ValidationMessageFor(model => model.Rental.EndDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    <label class="control-label">Period</label>
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    <input class="form-control form-control-sm text-box single-line" type="text" name="daterange" id="rental-range" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.PickUpLocation, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.PickUpLocation.BusinessEntityId, new SelectList(Model.Branches, "BusinessEntityId", "Name"), "Select Branch", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @Html.ValidationMessageFor(model => model.Rental.PickUpLocation.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.DropOffLocation, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.DropOffLocation.BusinessEntityId, new SelectList(Model.Branches, "BusinessEntityId", "Name"), "Select Branch", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @Html.ValidationMessageFor(model => model.Rental.DropOffLocation.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.VehicleType.Name, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.VehicleType.VehicleTypeId, new SelectList(Model.VehicleTypes, "VehicleTypeId", "Name"), "Select Vehicle Type", htmlAttributes: new { @class = "form-control form-control-sm", id = "vehicleTypeDropdown" })
+                                    @Html.ValidationMessageFor(model => model.Rental.VehicleType.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.VehicleModel.Name, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.VehicleModel.VehicleModelId, new SelectList(Model.VehicleModels, "VehicleModelId", "Name"), "Select Vehicle Model", htmlAttributes: new { @class = "form-control form-control-sm", id = "vehicleModelDropdown" })
+                                    @Html.ValidationMessageFor(model => model.Rental.VehicleModel.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" hidden>
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.VehicleType.Name, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.VehicleType.VehicleTypeId, new SelectList(Model.VehicleTypes, "VehicleTypeId", "Rate"), "Select Vehicle Rate", htmlAttributes: new { @class = "form-control form-control-sm", id = "vehicleRateDropdown" })
+                                    @Html.ValidationMessageFor(model => model.Rental.VehicleType.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="row">
+                                <div class="col-sm-5 text-right font-weight-bold">
+                                    @Html.LabelFor(model => model.Rental.Vehicle, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-7 text-left">
+                                    @Html.DropDownListFor(m => m.Rental.Vehicle.VehicleId, new SelectList(Model.Vehicles, "VehicleId", "LicensePlate"), "Select Vehicle", htmlAttributes: new { @class = "form-control form-control-sm", id = "vehicleDropdown" })
+                                    @Html.ValidationMessageFor(model => model.Rental.Vehicle.LicensePlate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Rentla Cost Preview-->
+                        <div id="bill" class="border rounded" hidden>
+
+                            <h6 class="text-center"><strong>Invoice</strong></h6>
+                            <table class="table table-bordered table-striped mb-3" style="font-size: small">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Daily Rate
+                                        </th>
+                                        <th>
+                                            Days
+                                        </th>
+                                        <th>
+                                            Total Cost
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span id="vehicle-rate"></span>
+                                        </td>
+                                        <td>
+                                            <span id="number-of-days"></span>
+                                        </td>
+                                        <td>
+                                            <span id="total-cost"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="col-12 text-right align-content-center">
+                            <div class="modal-footer">
+                                <input type="Reset" value="Reset" class="btn btn-secondary" />
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/customscpt/rentalModal.js"></script>
+
+
