@@ -9,11 +9,11 @@
     <div class="">
         <div class="card-body mx-auto">
             <div class="table-responsive">
-                <a onclick="Add('@Url.Action("AddOrEdit", "Vehicle")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
+                <a onclick="Add('@Url.Action("AddOrEdit", "Vehicles")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
                     <span class="icon text-white-50"><i class='fas fa-plus'></i></span>
                     <span class="text text-white">Add</span>
                 </a>
-                <table id="vehicleTable" class="table table-bordered" cellspacing="0">
+                <table id="table" class="table table-bordered" cellspacing="0">
                     <thead>
                         <tr>
                             <th>
@@ -76,6 +76,7 @@
 
 @section scripts
 {
+    <script src="~/Scripts/customscpt/data-tables-helpers.js"></script>
     <script src="~/Scripts/customscpt/vehicles.js"></script>
 }
 

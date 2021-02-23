@@ -79,14 +79,14 @@ function Details(url) {
 }
 
 // adds checkboxes for datatable columns that require them
-function AddCheckbox(data) {
-    if (data === true) {
-        return '<input type="checkbox" class="editor-active" onclick="return false;" checked>';
-    } else {
-        return '<input type="checkbox" onclick="return false;" class="editor-active">';
-    }
-    return data;
-}
+//function AddCheckbox(data) {
+//    if (data === true) {
+//        return '<input type="checkbox" class="editor-active" onclick="return false;" checked>';
+//    } else {
+//        return '<input type="checkbox" onclick="return false;" class="editor-active">';
+//    }
+//    return data;
+//}
 
 // called when user click on the edit button in the action column for the respective rental data table
 function SubmitEditForm(form) {

@@ -12,7 +12,7 @@ using VehicleRentalSystem.ViewModels;
 
 namespace VehicleRentalSystem.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomersController : Controller
     {
         [Route("Customers")]
         public ActionResult Manage()

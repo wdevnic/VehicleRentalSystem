@@ -15,7 +15,7 @@
             <!-- Branch Form -->
             <div id="mbody" class="modal-body" style="padding-bottom:0px">
 
-                @using (Html.BeginForm("AddOrEdit", "Branch", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
+                @using (Html.BeginForm("AddOrEdit", "Branches", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
                 {
                     <div class="container">
                         @Html.AntiForgeryToken()

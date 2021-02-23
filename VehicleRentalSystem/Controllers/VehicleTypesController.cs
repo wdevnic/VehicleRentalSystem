@@ -7,9 +7,9 @@ using VehicleRentalSystem.Models;
 
 namespace VehicleRentalSystem.Controllers
 {
-    public class VehicleManufacturerController : Controller
+    public class VehicleTypesController : Controller
     {
-        [Route("VehicleManufacturers")]
+        [Route("VehicleTypes")]
         public ActionResult Manage()
         {
             return View();
@@ -25,23 +25,24 @@ namespace VehicleRentalSystem.Controllers
                 }
                 else
                 {
-                    VehicleManufacturer maker = db.VehicleManufacturers.Find(id);
-                    return View(maker);
+                    VehicleType vehicleType = db.VehicleTypes.Find(id);
+                    return View(vehicleType);
                 }
             }
         }
 
         [HttpPost]
-        public ActionResult AddOrEdit(VehicleManufacturer maker)
+        public ActionResult AddOrEdit(VehicleType newVehicleType)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                // Update vehicle manufacturer
-                if (db.VehicleManufacturers.Any(x => x.VehicleManufacturerId == maker.VehicleManufacturerId))
+                // Update vehicle type
+                if (db.VehicleTypes.Any(x => x.VehicleTypeId == newVehicleType.VehicleTypeId))
                 {
-                    VehicleManufacturer current = db.VehicleManufacturers.Find(maker.VehicleManufacturerId);
-                    current.Name = maker.Name;
-                
+                    VehicleType currentVehicleType = db.VehicleTypes.Find(newVehicleType.VehicleTypeId);
+                    currentVehicleType.Name = newVehicleType.Name;
+                    currentVehicleType.Rate = newVehicleType.Rate;
+
                     db.SaveChanges();
 
                     return Json(new { success = true, message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
@@ -49,8 +50,8 @@ namespace VehicleRentalSystem.Controllers
                 }
                 else
                 {
-                    // Add Manufacturer
-                    db.VehicleManufacturers.Add(maker);
+                    // Add new vehicle type
+                    db.VehicleTypes.Add(newVehicleType);
                     db.SaveChanges();
                     return Json(new { success = true, message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
                 }
@@ -61,23 +62,22 @@ namespace VehicleRentalSystem.Controllers
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                List<VehicleManufacturer> makerList = db.VehicleManufacturers.ToList();
-                return Json(new { data = makerList }, JsonRequestBehavior.AllowGet);
+                List<VehicleType> vehicleTypes = db.VehicleTypes.ToList();
+                return Json(new { data = vehicleTypes }, JsonRequestBehavior.AllowGet);
             }
         }
 
-  
+
         [HttpPost]
         public ActionResult Delete(int id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                VehicleManufacturer maker = db.VehicleManufacturers.Find(id);
-                db.VehicleManufacturers.Remove(maker);
+                VehicleType vehicleType = db.VehicleTypes.Find(id);
+                db.VehicleTypes.Remove(vehicleType);
                 db.SaveChanges();
                 return Json(new { success = true, message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

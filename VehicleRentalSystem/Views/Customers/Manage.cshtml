@@ -1,41 +1,42 @@
-﻿@model IEnumerable<VehicleRentalSystem.ViewModels.BranchViewModel>
-
+﻿@model IEnumerable<VehicleRentalSystem.ViewModels.CustomerViewModel>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h4 class="m-0 font-weight-bold text-primary text-center">Manage Branches</h4>
+        <h4 class="m-0 font-weight-bold text-primary text-center">Manage Customers</h4>
 
     </div>
-    <!-- Branch Data Table Headings-->
     <div class="card-body">
         <div class="table-responsive">
-            <a onclick="Add('@Url.Action("AddOrEdit", "Branch")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
+            <a onclick="Add('@Url.Action("AddOrEdit", "Customers")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
                 <span class="icon text-white-50"><i class='fas fa-plus'></i></span>
                 <span class="text text-white">Add</span>
             </a>
-            <table id="branchTable" class="table table-bordered" width="100%" cellspacing="0">
+            <table id="table" class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Branch.BusinessEntityId)
+                            @Html.DisplayNameFor(model => model.Customer.CustomerId)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Branch.Name)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.Address.AddressLine1)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.Address.AddressLine2)
+                            @Html.DisplayNameFor(model => model.Customer.Person.Title)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Address.City)
+                            @Html.DisplayNameFor(model => model.Customer.Person.FirstName)
                         </th>
 
                         <th>
-                            @Html.DisplayNameFor(model => model.Address.PostalCode)
+                            @Html.DisplayNameFor(model => model.Customer.Person.LastName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.PhoneNumbers.FirstOrDefault().Phone.PhoneNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAddresses.FirstOrDefault().EmailAdd.Email)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Branch.Name)
                         </th>
 
                         <th>
@@ -64,12 +65,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-gradient-primary">
-                <h5 class="modal-title text-light" id="deleteModalLabel">Delete Branch</h5>
+                <h5 class="modal-title text-light" id="deleteModalLabel">Delete Customer</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Are you sure you would like to delete this branch?</div>
+            <div class="modal-body">Are you sure you would like to delete this customer?</div>
             <div class="modal-footer border-0">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <button id="deleteButton" class="btn btn-primary" type="button">Delete</button>
@@ -81,6 +82,6 @@
 
 @section scripts
 {
-    <script src="~/Scripts/customscpt/branch.js"></script>
+    <script src="~/Scripts/customscpt/data-tables-helpers.js"></script>
+    <script src="~/Scripts/customscpt/customers.js"></script>
 }
-

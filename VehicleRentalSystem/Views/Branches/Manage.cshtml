@@ -1,42 +1,41 @@
-﻿@model IEnumerable<VehicleRentalSystem.ViewModels.VehicleModelViewModel>
+﻿@model IEnumerable<VehicleRentalSystem.ViewModels.BranchViewModel>
 
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h4 class="m-0 font-weight-bold text-primary text-center">Manage Models</h4>
+        <h4 class="m-0 font-weight-bold text-primary text-center">Manage Branches</h4>
+
     </div>
-    <!--Vehicle Model Data Table headings-->
+    <!-- Branch Data Table Headings-->
     <div class="card-body">
         <div class="table-responsive">
-            <a onclick="Add('@Url.Action("AddOrEdit", "VehicleModel")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
+            <a onclick="Add('@Url.Action("AddOrEdit", "Branches")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
                 <span class="icon text-white-50"><i class='fas fa-plus'></i></span>
                 <span class="text text-white">Add</span>
             </a>
-            <table id="vehicleModelTable" class="table table-bordered" width="100%" cellspacing="0">
+            <table id="table" class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.VehicleModelId)
+                            @Html.DisplayNameFor(model => model.Branch.BusinessEntityId)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.SeatingCapacity)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.BagCapacity)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.VehicleManufacturer.Name)
+                            @Html.DisplayNameFor(model => model.Branch.Name)
                         </th>
 
                         <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.VehicleType.Name)
+                            @Html.DisplayNameFor(model => model.Address.AddressLine1)
                         </th>
 
                         <th>
-                            @Html.DisplayNameFor(model => model.VehicleModel.Automatic)
+                            @Html.DisplayNameFor(model => model.Address.AddressLine2)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.City)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.PostalCode)
                         </th>
 
                         <th>
@@ -61,17 +60,17 @@
 </div>
 
 @*Delete rental Bootstrap modal*@
-<div class="modal " id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal " id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-gradient-primary">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Delete Vehicle Model</h5>
+                <h5 class="modal-title text-light" id="deleteModalLabel">Delete Branch</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Are you sure you would like to delete this model?</div>
-            <div class="modal-footer">
+            <div class="modal-body">Are you sure you would like to delete this branch?</div>
+            <div class="modal-footer border-0">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <button id="deleteButton" class="btn btn-primary" type="button">Delete</button>
 
@@ -82,6 +81,7 @@
 
 @section scripts
 {
-    <script src="~/Scripts/customscpt/vehicle_model.js"></script>
+    <script src="~/Scripts/customscpt/data-tables-helpers.js"></script>
+    <script src="~/Scripts/customscpt/branch.js"></script>
 }
 
