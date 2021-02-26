@@ -33,32 +33,5 @@ const columnDef = [
         "className": "text-center",
     }]
 
+
 $(document).ready(loadTable);
-
-function AddPhoneNumber() {
-    $.ajax({
-        async: false,
-        url: '/Customer/AddNewPhoneNumber'
-    }).done(function (partialView) {
-        $('#allPhoneNumbers').append(partialView);
-    });
-
-    var list = new Array();
-    $('option', $('#allPhoneNumbers')).each(function () {
-        if ($(this).attr('selected') == 'selected') {
-            list.push($(this).attr('value'));
-        }
-
-    });
-
-    $('option', $('#newPhoneRow')).each(function () {
-        if (jQuery.inArray($(this).attr('value'), list) !== -1) {
-            $(this).remove();
-        }
-    });
-
-    if ($('#allPhoneNumbers select').length == 3) {
-        $('#addPhoneNumber').hide();
-    }
-           
-}    

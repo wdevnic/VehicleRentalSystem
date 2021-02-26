@@ -62,7 +62,7 @@
                 </a>
                 <div id="collapseBranches" class="collapse" aria-labelledby="headingBranches" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Branch")')">Add Branch</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Branches")')">Add Branch</a>
                         <a class="collapse-item" href="/Branches">Manage Branches</a>
                         @*@Html.ActionLink("Manage Branches", "Manage", "Branch", null, new { @class = "collapse-item" })*@
                     </div>
@@ -78,7 +78,7 @@
                 </a>
                 <div id="collapseCustomers" class="collapse" aria-labelledby="headingCustomers" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Customer")')">Add Customer</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Customers")')">Add Customer</a>
                         <a class="collapse-item" href="/Customers">Manage Customers</a>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                 </a>
                 <div id="collapseReservations" class="collapse" aria-labelledby="headingReservations" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Reservation")')">Add Reservation</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Reservations")')">Add Reservation</a>
                         <a class="collapse-item" href="/Reservations">Manage Reservations</a>
                     </div>
                 </div>
@@ -108,16 +108,16 @@
                 <div id="collapseVehicles" class="collapse" aria-labelledby="headingVehicles" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header custom-color">Vehicles</h6>
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Vehicle")')">Add Vehicle</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "Vehicles")')">Add Vehicle</a>
                         <a class="collapse-item" href="/Vehicles">Manage Vehicles</a>
                         <h6 class="collapse-header">Classes</h6>
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "VehicleType")')">Add Vehicle Type</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "VehicleTypes")')">Add Vehicle Type</a>
                         <a class="collapse-item" href="/VehicleTypes">Manage Vehicle Types</a>
                         <h6 class="collapse-header">Models</h6>
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "VehicleModel")')">Add Model</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "VehicleModels")')">Add Model</a>
                         <a class="collapse-item" href="/VehicleModels">Manage Models</a>
                         <h6 class="collapse-header">Manufacturers</h6>
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "VehicleManufacturer")')">Add Manufacturer</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddOrEdit", "VehicleManufacturers")')">Add Manufacturer</a>
                         <a class="collapse-item" href="/VehicleManufacturers">Manage Manufacterurers</a>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                 </a>
                 <div id="collapseBilling" class="collapse" aria-labelledby="headingBilling" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" onclick="Add('@Url.Action("AddRental", "Rental")')">Create Rental</a>
+                        <a class="collapse-item" onclick="Add('@Url.Action("AddRental", "Rentals")')">Create Rental</a>
                         <a class="collapse-item" href="/Rentals">Manage Rentals</a>
                     </div>
                 </div>

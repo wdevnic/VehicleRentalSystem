@@ -1,4 +1,6 @@
-﻿
+﻿const tableSelect = $("#table");
+const dateFormat = "DD/MM/YYYY";
+
 const loadTable = () => {
     dataTable = $("#table").DataTable({
         "responsive": true,
@@ -9,7 +11,6 @@ const loadTable = () => {
             "url": `${location.pathname}/GetData`,
             "type": "GET",
             "datatype": "json"
-
         },
         "columns": columns,
         "language": {
@@ -21,12 +22,10 @@ const loadTable = () => {
         dataTable.search($(this).val()).draw();
     })
 
-    console.dir(location)
-
 }
 
 const formatDate = (data) => {
-    return (moment(data).isValid()) ? moment(data).format("DD/MM/YYYY") : "-";
+    return (moment(data).isValid()) ? moment(data).format(dateFormat) : "-";
 }
 
 const AddCheckbox = (data) => {

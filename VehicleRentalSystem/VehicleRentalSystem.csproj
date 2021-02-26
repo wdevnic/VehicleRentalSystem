@@ -511,6 +511,7 @@
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\customscpt\branch.js" />
     <Content Include="Scripts\customscpt\customers.js" />
+    <Content Include="Scripts\customscpt\Old\dashboard - Copy.js" />
     <Content Include="Scripts\customscpt\data-tables-helpers.js" />
     <Content Include="Scripts\customscpt\Old\customerModel-old.js" />
     <Content Include="Scripts\customscpt\Old\rates-old.js" />

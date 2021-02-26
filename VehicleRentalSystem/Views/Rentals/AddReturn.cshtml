@@ -17,7 +17,7 @@
             <div id="mbody" class="modal-body" style="padding-bottom:0px">
 
                 <!--Returns Form-->
-                @using (Html.BeginForm("AddReturn", "Rental", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
+                @using (Html.BeginForm("AddReturn", "Rentals", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
                 {
                     <div class="container">
                         @Html.AntiForgeryToken()

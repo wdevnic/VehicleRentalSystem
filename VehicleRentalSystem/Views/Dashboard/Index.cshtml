@@ -62,7 +62,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
-                        <a href="@Url.Action("Manage", "VehicleModel")">
+                        <a href="@Url.Action("Manage", "VehicleModels")">
                             @*redirect to cars page*@
                             <div id="bchart">
                                 <div class="chart-area">
@@ -86,7 +86,7 @@
                 <div class="card-body">
                     <div class="chart-area">
 
-                        <a href="@Url.Action("Manage", "Rental")">
+                        <a href="@Url.Action("Manage", "Rentals")">
                             @*redirect to retals page*@
                             <div id="lchart">
                                 <div class="chart-area">
@@ -111,17 +111,17 @@
         <div class="card-body">
             <div class="table-responsive">
                 <!-- Add Record-->
-                <a onclick="Add('@Url.Action("AddRental", "Rental")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
+                <a onclick="Add('@Url.Action("AddRental", "Rentals")')" class="btn btn-sm btn-primary btn-icon-split mb-4">
                     <span class="icon text-white-50"><i class='fas fa-plus'></i></span>
                     <span class="text text-white">Add</span>
                 </a>
                 <!-- Remove Filter -->
-                <a onclick="RemoveFilter()" class="btn btn-sm btn-primary btn-icon-split mb-4 float-right">
+                <a onclick="removeFilter()" class="btn btn-sm btn-primary btn-icon-split mb-4 float-right">
                     <span class="icon text-white-50"><i class="fas fa-filter"></i></span>
                     <span class="text text-white">Remove Filter</span>
                 </a>
                 <!-- Rentals Data Table -->
-                <table id="rentalTable" class="table table-bordered" width="100%" cellspacing="0">
+                <table id="table" class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>
@@ -197,9 +197,11 @@
 
 @section scripts
 {
+
+    <script src="~/Scripts/customscpt/data-tables-helpers.js"></script>
     <script src="~/Scripts/Chart.min.js"></script>
     <script src="~/Scripts/customscpt/dashboard.js"></script>
-    <script src="~/Scripts/customscpt/Dialogs.js"></script>
+   
 }
 
 

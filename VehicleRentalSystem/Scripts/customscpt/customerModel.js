@@ -1,37 +1,39 @@
-﻿$(document).ready(function () {
-    AddMissingFields();
-});
+﻿
+const addNumberSel = $('#addPhoneNumber')
+const addAddressSel = $("#addAddress")
+const addEmailSel = $("#addEmailAddress")
+const allNumsSel = $('#allPhoneNumbers')
+const allAddressesSel = $('#allAddresses')
+const allEmailsSel = $('#allEmailAddresses')
 
-
-function AddMissingFields() {
+const AddMissingFields = () => {
     if ($('#allPhoneNumbers select').length == 3) {
-        $('#addPhoneNumber').hide();
+        addNumberSel.hide();
     }
 
-
     if ($('#allPhoneNumbers .phoneRow').length == 0) {
-        $("#addPhoneNumber").click();
+        addNumberSel.click();
     }
 
     if ($('#allAddresses .addressRow').length == 0) {
-        $("#addAddress").click();
+        addAddressSel.click();
     }
 
     if ($('#allEmailAddresses .emailRow').length == 0) {
-        $("#addEmailAddress").click();
+        addEmailSel.click();
     }
 }
 
-function AddPhoneNumber() {
+const  AddPhoneNumber = () => {
+    const list = [];
     $.ajax({
         async: false,
-        url: '/Customers/AddNewPhoneNumber'
-    }).done(function (partialView) {
-        $('#allPhoneNumbers').append(partialView);
+        url: `${location.pathname}/AddNewPhoneNumber`
+    }).done((partialView) => {
+        allNumsSel.append(partialView);
     });
 
-    var list = new Array();
-    $('option', $('#allPhoneNumbers')).each(function () {
+    $('option', allNumsSel).each(() => {
         if ($(this).attr('selected') == 'selected') {
             list.push($(this).attr('value'));
         }
@@ -45,27 +47,34 @@ function AddPhoneNumber() {
     });
 
     if ($('#allPhoneNumbers select').length == 3) {
-        $('#addPhoneNumber').hide();
+        addNumberSel.hide();
     }
 
 }
 
-    function AddAddress() {
+    const AddAddress = () => {
         $.ajax({
             async: false,
-            url: '/Customers/AddNewAddress'
-        }).done(function (partialView) {
-            $('#allAddresses').append(partialView);
+            url: `${location.pathname}/AddNewAddress`
+        }).done((partialView) => {
+            allAddressesSel.append(partialView);
         });
 
     }
 
-    function AddEmail() {
+    const AddEmail = () => {
         $.ajax({
             async: false,
-            url: '/Customers/AddNewEmailAddress'
-        }).done(function (partialView) {
-            $('#allEmailAddresses').append(partialView);
+            url: `${location.pathname}/AddNewEmailAddress`
+        }).done((partialView) => {
+            allEmailsSel.append(partialView);
         });
-    }
+}
+
+
+    $(document).ready(() => {
+        AddMissingFields();
+    });
+
+
 

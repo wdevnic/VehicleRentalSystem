@@ -1,80 +1,18 @@
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
-var popupForm, dataTable;
-
-// function that filters overdue rentals
-var myFilterFunction = function (settings, data, dataIndex) {
-    var endDate = moment(data[4], "DD/MM/YYYY");
-    var returned = data[8] == 'true';
-
-    var today = moment();
-    var today2 = moment(today, "DD/MM/YYYY");
-
-    if ((today2.diff(endDate, 'days') > 0) && (!returned)) {
-        return true;
-    }
-    return false;
-};
 
 
 
-    // load charts and tables
-    $(document).ready(function () { 
-        getTableData();
-        getBarChartData();
-        getLineChartData();
-        initializeToolTips();
-    });
+     const getTableData = () => {
 
-    // show rental records for todays pickup
-    $('#pickup').click(function () { 
-        var table = $('#rentalTable').DataTable();
-        table
-            .column(3)
-            .search(moment().format("DD/MM/YYYY"))
-            .draw();
-
-        table.columns().search("");
-    });
-
-    // show rental records for todays dropoff
-    $('#dropoff').click(function () { 
-        var table = $('#rentalTable').DataTable();
-        table
-            .column(4)
-            .search(moment().format("DD/MM/YYYY"))
-            .draw();
-        table.columns().search("");
-    });
-
-    // show rental records for overdue returns
-    $('#overdue').click(function () {
-        var table = $('#rentalTable').DataTable();
-        $.fn.dataTable.ext.search.push(myFilterFunction);
-        table.draw();
-        $.fn.dataTable.ext.search.splice($.fn.dataTable.ext.search.indexOf(myFilterFunction, 1));
-            
-    });
-
-    // remove filters put on by dashboard 
-    function RemoveFilter() {
-        var table = $('#rentalTable').DataTable();
-         $.fn.dataTable.ext.search.splice($.fn.dataTable.ext.search.indexOf(myFilterFunction, 1));
-        table.draw();
-    }
-
-
-        // display datatable
-    function getTableData() {
-
-        dataTable = $("#rentalTable").DataTable({
+         const dataTable = tableSelect.DataTable({
             "responsive": true,
             "sDom": "lrtip",
             "autoWidth": false,
             'columnDefs': [
                 {
-                    "targets": [7,9],
+                    "targets": [7, 9],
                     "className": "text-center"
                 },
                 {
@@ -84,7 +22,7 @@ var myFilterFunction = function (settings, data, dataIndex) {
             ],
             "autoWidth": false,
             "ajax": {
-                "url": "/Rental/GetData",
+                "url": "/Rentals/GetData",
                 "type": "GET",
                 "datatype": "json"
 
@@ -101,34 +39,28 @@ var myFilterFunction = function (settings, data, dataIndex) {
                 { "data": "Returned", "render": AddCheckbox },
                 { "data": "Returned" },
                 {
-                    "data": "Id", "render": function (data, type, row) {
+                    "data": "Id", "render": (data, type, row) => {
 
-                        var disable = "";
+                        let disable = "";
 
                         if (row['Returned'] == true) {
                             disable = "disabled";
                         }
+                        return `<a class='btn btn-sm btn-success btn-icon-split mr-2 ${disable}'  onclick = "Edit('/Rentals/AddReturn/${data}', 'Process Return')">
+                                <span class='icon text-white-50'><i class='fas fa-edit'></i></span>
+                                <span class='text text-white'>Return</span>
+                            </a>`
+                            +
+                             `<a class='btn btn-sm btn-info btn-icon-split mr-2' onclick = "Details('/Rentals/Details/${data}')">
+                                <span class='icon text-white-50'><i class='fas fa-info-circle'></i></span>
+                                <span class='text text-white'>Details</span>
+                            </a>`
+                            +
+                            `<a class='btn btn-sm btn-danger btn-icon-split' onclick = "Delete('/Rentals/Delete/${data}')">
+                                <span class='icon text-white-50'><i class='fas fa-trash'></i></span>
+                                <span class='text text-white'>Delete</span>
+                            </a>`
 
-                        return "<a  class='btn btn-sm btn-success btn-icon-split mr-2 " + disable + "\'  onclick = \"Edit('/Rental/AddReturn/" + data + "', 'Process Return')\">"
-                            + "<span class='icon text-white-50'>"
-                            + " <i class='fas fa-edit'></i>"
-                            + "</span>"
-                            + "<span class='text text-white'>Return</span>"
-                            + "</a>"
-
-                            + "<a class='btn btn-sm btn-info btn-icon-split mr-2' onclick = \Details('/Rental/Details/" + data + "')>"
-                            + "<span class='icon text-white-50'>"
-                            + " <i class='fas fa-info-circle'></i>"
-                            + "</span>"
-                            + "<span class='text text-white'>Details</span>"
-                            + "</a>"
-
-                            + "<a class='btn btn-sm btn-danger btn-icon-split' onclick = \Delete('/Rental/Delete/" + data + "')>"
-                            + "<span class='icon text-white-50'>"
-                            + " <i class='fas fa-trash'></i>"
-                            + "</span>"
-                            + "<span class='text text-white'>Delete</span>"
-                            + "</a>"
                     },
 
                 }
@@ -143,78 +75,122 @@ var myFilterFunction = function (settings, data, dataIndex) {
         });
     }
 
-    // allow search bar to search dat table
-    $('#mainSearch').keyup(function () {
-        dataTable.search($(this).val()).draw();
-    })
 
-    // format date
-    function formatDate(data) {
-        return (moment(data).isValid()) ? moment(data).format("DD/MM/YYYY") : "-";
+
+    // function that filters overdue rentals
+    const filterOverdue = (settings, data) => {
+
+        const endDate = moment(data[4], dateFormat);
+        const returned = data[8] == 'true';
+        const today = moment(moment(), dateFormat);
+
+        return ((today.diff(endDate, 'days') > 0) && (!returned)) 
+    };
+
+
+
+   
+
+    // show rental records for todays pickup
+    $('#pickup').click(() => { 
+        const table = tableSelect.DataTable();
+        table
+            .column(3)
+            .search(moment().format(dateFormat))
+            .draw();
+
+        table.columns().search("");
+    });
+
+    // show rental records for todays dropoff
+    $('#dropoff').click(() => { 
+        const table = tableSelect.DataTable();
+        table
+            .column(4)
+            .search(moment().format(dateFormat))
+            .draw();
+        table.columns().search("");
+    });
+
+    // show rental records for overdue returns
+    $('#overdue').click(() => {
+        const table = tableSelect.DataTable();
+        $.fn.dataTable.ext.search.push(filterOverdue);
+        table.draw();
+        $.fn.dataTable.ext.search.splice($.fn.dataTable.ext.search.indexOf(filterOverdue, 1));
+            
+    });
+
+    // remove filters put on by dashboard 
+    const removeFilter = () => {
+        const table = tableSelect.DataTable();
+         $.fn.dataTable.ext.search.splice($.fn.dataTable.ext.search.indexOf(filterOverdue, 1));
+        table.draw();
     }
 
-    // display car availability chart
-    function getBarChartData() {
 
-        $.ajax({
-            url: "/Dashboard/CarClassAvailability",
-            type: "GET",
-            dataType: "json",
-            success: function (gif) {
-                var dataT = {
-                    labels: gif.data.category,
-                    datasets: [{
-                        label: "Vehicles ",
-                        barThickness: 30,
-                        data: gif.data.count,
-                        fill: false,
-                        backgroundColor: "#4e73df",
-                        hoverBackgroundColor: "#2e59d9",
-                        borderColor: "#4e73df"
-                    }]
-                };
+        // display car availability chart
+    const getBarChartData = () =>{
 
-                var ctx = $("#bar_chart").get(0).getContext("2d");
-                var myNewChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: dataT,
-                    options: {
-                        maintainAspectRatio: false,
-                        layout: {
-                            padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
-                            }
-                        },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    stepSize: 1
+            $.ajax({
+                url: "/Dashboard/CarClassAvailability",
+                type: "GET",
+                dataType: "json",
+                success: (gif) => {
+                    const dataT = {
+                        labels: gif.data.category,
+                        datasets: [{
+                            label: "Vehicles ",
+                            barThickness: 30,
+                            data: gif.data.count,
+                            fill: false,
+                            backgroundColor: "#4e73df",
+                            hoverBackgroundColor: "#2e59d9",
+                            borderColor: "#4e73df"
+                        }]
+                    };
+
+                    const ctx = $("#bar_chart").get(0).getContext("2d");
+                    const myNewChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: dataT,
+                        options: {
+                            maintainAspectRatio: false,
+                            layout: {
+                                padding: {
+                                    left: 10,
+                                    right: 25,
+                                    top: 25,
+                                    bottom: 0
                                 }
-                            }]
-                        },
-                        legend: {display: false}
-                    }
-                })
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        stepSize: 1
+                                    }
+                                }]
+                            },
+                            legend: {display: false}
+                        }
+                    })
 
 
 
 
-            }
-        });
-    }
+                }
+            });
+        }
 
     // display revenue chart
-    function getLineChartData() {
+    const getLineChartData = () => {
 
         $.ajax({
             url: "/Dashboard/LastSevenDaysRevenue",
             type: "GET",
             dataType: "json",
-            success: function (gif) {
+            success: (gif) => {
                 let start = new Date(),
                     end = new Date();
 
@@ -231,8 +207,6 @@ var myFilterFunction = function (settings, data, dataIndex) {
                             borderColor: 'rgba(0, 51, 102, 1)',
                             pointBackgroundColor: 'rgba(204, 204, 204, 1)',
                             pointRadius: 5
-
-
                         }]
                     },
                     options: {
@@ -248,9 +222,7 @@ var myFilterFunction = function (settings, data, dataIndex) {
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    callback: function (value) {
-                                        return ' $' + value;
-                                    }
+                                    callback: (value) => ' $' + value
                                 }
                             }],
                             xAxes: [{
@@ -267,9 +239,8 @@ var myFilterFunction = function (settings, data, dataIndex) {
                         legend: { display: false },
                         tooltips: {
                             callbacks: {
-                                label: function (tooltipItems, data) {
-                                    return " $ " + tooltipItems.yLabel.toString();
-                                }
+                                label: (tooltipItems, data) => " $ " + tooltipItems.yLabel.toString()
+                                
                             }
                         }
                     }
@@ -281,15 +252,19 @@ var myFilterFunction = function (settings, data, dataIndex) {
         });
     }
 
-        // format date
-    function formatDate(data) {
-        return (moment(data).isValid()) ? moment(data).format("DD/MM/YYYY") : "-";
-    }
 
     // tooltips
-    function initializeToolTips() {
+    const initializeToolTips = () => {
         $('[data-toggle="tooltip"]').tooltip();
-    }
+}
+
+    // load charts and tables
+    $(document).ready(() => {
+        getTableData();
+        getBarChartData();
+        getLineChartData();
+        initializeToolTips();
+    });
 
       
 

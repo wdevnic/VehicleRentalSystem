@@ -21,7 +21,7 @@
         </div>
 
         <div class="col-12 text-right align-content-center mb-2">
-            <a class="btn btn-sm btn-danger  " onclick="DeleteItem('@Url.Action("DeleteEmailAddress", "Customer", new { businessEntityId = Model.EmailAdd.BusinessEntityId, emailId = Model.EmailAdd.EmailAddressId })', this)"><span class="icon text-white-50"><i class="fas fa-trash"></i></span></a>
+            <a class="btn btn-sm btn-danger  " onclick="DeleteItem('@Url.Action("DeleteEmailAddress", "Customers", new { businessEntityId = Model.EmailAdd.BusinessEntityId, emailId = Model.EmailAdd.EmailAddressId })', this)"><span class="icon text-white-50"><i class="fas fa-trash"></i></span></a>
         </div>
     </div>
 }

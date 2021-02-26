@@ -17,7 +17,7 @@
 
                 <!--Vehicle Manufacturer Data Table headings-->
 
-                @using (Html.BeginForm("AddOrEdit", "VehicleManufacturer", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
+                @using (Html.BeginForm("AddOrEdit", "VehicleManufacturers", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", @class = "form-horizontal", id = "add" }))
                 {
                     <div class="container">
                         @Html.AntiForgeryToken()
